@@ -23,6 +23,7 @@ import NotFoundScreen from "../screens/NotFoundScreen";
 import SportDetailView from "../screens/SportDetailView";
 import LearnSportScreen from "../screens/LearnSportScreen";
 import HistoryScreen from "../screens/HistoryScreen";
+import FavouriteScreen from "../screens/FavouriteScreen";
 import {
   IStore,
   RootStackParamList,
@@ -120,6 +121,14 @@ function BottomTabNavigator() {
             </Pressable>
           ),
         })}
+      />
+      <BottomTab.Screen
+        name="Favourite"
+        component={FavouriteScreen}
+        options={{
+          title: "Favourites",
+          tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
+        }}
       />
       <BottomTab.Screen
         name="History"

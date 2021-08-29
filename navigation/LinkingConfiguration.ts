@@ -20,9 +20,14 @@ const linking: LinkingOptions<RootStackParamList> = {
               LearnSportScreen: "one",
             },
           },
+          Favourite: {
+            screens: {
+              FavouriteScreen: "two",
+            },
+          },
           History: {
             screens: {
-              HistoryScreen: "two",
+              HistoryScreen: "three",
             },
           },
         },
