@@ -5,8 +5,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditScreenInfo from "../components/EditScreenInfo";
+import SportList from "../components/SportList";
 import SportListItem from "../components/SportListItem";
 import { Text, View } from "../components/Themed";
+import useGetFilteredList from "../hooks/useGetFilteredList";
 import { openSport } from "../redux/Action";
 import { ISport, IStore, RootTabScreenProps } from "../types";
 
@@ -19,19 +21,11 @@ export default function HistoryScreen({
   const history: number[] = useSelector(
     (state: { sportReducer: IStore }) => state.sportReducer.history
   );
-  const historyList = useMemo(() => {
-    if (!data) {
-      return [];
-    }
-    const historyItems: Set<ISport> = new Set();
-    history.forEach((sportId) => {
-      const sportItem = data.data.find((item) => item.id === sportId);
-      if (sportItem) {
-        historyItems.add(sportItem);
-      }
-    });
-    return [...historyItems];
-  }, [history, data]);
+  const historyList = useGetFilteredList(
+    data ? data.data : [],
+    history,
+    (item, id) => item.id === id
+  );
   const dispatch = useDispatch();
   const handleSportPress = (sportId: number) => {
     dispatch(openSport(sportId));
@@ -39,15 +33,7 @@ export default function HistoryScreen({
   };
   return (
     <View>
-      <FlatList
-        data={historyList}
-        renderItem={({ item }: { item: ISport }) => (
-          <Pressable onPress={() => handleSportPress(item.id)}>
-            <SportListItem item={item} />
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      <SportList list={historyList} handleSportPress={handleSportPress} />
     </View>
   );
 }

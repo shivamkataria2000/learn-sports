@@ -87,3 +87,8 @@ export interface IStore {
   showSearchBar: boolean;
   favourites: Set<number>;
 }
+
+export interface SportListProps {
+  list: ISport[];
+  handleSportPress: (id: number) => void;
+}

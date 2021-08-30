@@ -5,8 +5,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 
 import EditScreenInfo from "../components/EditScreenInfo";
+import SportList from "../components/SportList";
 import SportListItem from "../components/SportListItem";
 import { Text, View } from "../components/Themed";
+import useGetFilteredList from "../hooks/useGetFilteredList";
 import { openSport } from "../redux/Action";
 import { ISport, IStore, RootTabScreenProps } from "../types";
 
@@ -20,19 +22,11 @@ export default function HistoryScreen({
   const favourites: Set<number> = useSelector(
     (state: { sportReducer: IStore }) => state.sportReducer.favourites
   );
-  const favouriteList = useMemo(() => {
-    if (!data) {
-      return [];
-    }
-    const favouriteItems: Set<ISport> = new Set();
-    favourites.forEach((sportId) => {
-      const sportItem = data.data.find((item) => item.id === sportId);
-      if (sportItem) {
-        favouriteItems.add(sportItem);
-      }
-    });
-    return [...favouriteItems];
-  }, [favourites, data]);
+  const favouriteList = useGetFilteredList(
+    data ? data.data : [],
+    favourites,
+    (item, id) => item.id === id
+  );
   const dispatch = useDispatch();
   const handleSportPress = (sportId: number) => {
     dispatch(openSport(sportId));
@@ -40,15 +34,7 @@ export default function HistoryScreen({
   };
   return (
     <View>
-      <FlatList
-        data={favouriteList}
-        renderItem={({ item }: { item: ISport }) => (
-          <Pressable onPress={() => handleSportPress(item.id)}>
-            <SportListItem item={item} />
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      <SportList list={favouriteList} handleSportPress={handleSportPress} />
     </View>
   );
 }

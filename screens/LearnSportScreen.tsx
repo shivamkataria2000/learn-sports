@@ -12,6 +12,7 @@ import { openSport, toggleSearch } from "../redux/Action";
 import { Searchbar } from "react-native-paper";
 import { useMemo } from "react";
 import Animated, { Easing, EasingNode } from "react-native-reanimated";
+import useSearchable from "../hooks/useSearchFilter";
 export default function LearnSportScreen({
   navigation,
 }: RootTabScreenProps<"LearnSport">) {
@@ -38,12 +39,11 @@ export default function LearnSportScreen({
     dispatch(openSport(sportId));
     navigation.navigate("SportDetailTab");
   };
-  const filterdList: ISport[] = useMemo(() => {
-    if (!data) return [];
-    return data.data.filter(
-      (item) => item.attributes.name.search(searchQuery) > -1
-    );
-  }, [searchQuery, data]);
+  const filterdList: ISport[] = useSearchable(
+    data ? data.data : [],
+    searchQuery,
+    (l) => [l.attributes.name]
+  );
   const searchBarAnim = React.useRef(new Animated.Value(-45)).current;
   useEffect(() => {
     if (showSearchBar) {
