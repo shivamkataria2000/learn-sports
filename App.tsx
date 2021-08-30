@@ -3,12 +3,14 @@ import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider as StateProvider } from "react-redux";
 import { Provider as PaperProvider, DefaultTheme } from "react-native-paper";
-
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
 import Store from "./redux/Store";
 import Colors from "./constants/Colors";
+import { LogBox } from "react-native";
+LogBox.ignoreAllLogs(true);
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
