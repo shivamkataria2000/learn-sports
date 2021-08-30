@@ -32,6 +32,7 @@ export type RootTabParamList = {
   History: undefined;
   Favourite: undefined;
   Onboarding: undefined;
+  UserInfo: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
@@ -91,4 +92,9 @@ export interface IStore {
 export interface SportListProps {
   list: ISport[];
   handleSportPress: (id: number) => void;
+}
+
+export interface FormData {
+  firstName: string;
+  lastName: string;
 }

@@ -32,6 +32,7 @@ import {
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import OnboardingScreen from "../screens/OnboardingScreen";
+import UserInfoScreen from "../screens/UserInfoScreen";
 
 export default function Navigation({
   colorScheme,
@@ -144,6 +145,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="history" color={color} />
           ),
+        }}
+      />
+      <BottomTab.Screen
+        name="UserInfo"
+        component={UserInfoScreen}
+        options={{
+          title: "User Info",
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </BottomTab.Navigator>

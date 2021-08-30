@@ -1,12 +1,8 @@
 import * as React from "react";
-import { useMemo } from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 
-import EditScreenInfo from "../components/EditScreenInfo";
+import EmptySvg from "../components/EmptySvg";
 import SportList from "../components/SportList";
-import SportListItem from "../components/SportListItem";
 import { Text, View } from "../components/Themed";
 import useGetFilteredList from "../hooks/useGetFilteredList";
 import { openSport } from "../redux/Action";
@@ -34,7 +30,11 @@ export default function HistoryScreen({
   };
   return (
     <View>
-      <SportList list={favouriteList} handleSportPress={handleSportPress} />
+      {favouriteList.length ? (
+        <SportList list={favouriteList} handleSportPress={handleSportPress} />
+      ) : (
+        <EmptySvg />
+      )}
     </View>
   );
 }
