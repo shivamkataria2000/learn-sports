@@ -42,6 +42,7 @@ function SportDetailView() {
             title={sportInfo.attributes.name}
             left={(props) => (
               <Avatar.Icon
+                {...props}
                 size={40}
                 color={Colors.white}
                 icon={() => (
