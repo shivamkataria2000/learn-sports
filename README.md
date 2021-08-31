@@ -51,8 +51,8 @@ Major Features of this application:
 * Onboarding Screen
 * List of Sports fetched from Decathlon Sports Api using axios and redux, redux-thunk
 * Ability to seach in the list using custom react hook.
-* Detail View of the sport.
-* History of viewd sports.
+* Detail View for each sport.
+* History of recently viewed sports.
 * Mark multiple sports as Favourites.
 * Capture User Info
   
